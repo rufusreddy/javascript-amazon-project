@@ -1,8 +1,11 @@
 import { cart, removeFromCart, updateDeliveryOption } from "../../data/cart.js";
-import { products } from "../../data/products.js";
+import { products, getProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
-import { deliveryOptions } from "../../data/deliveryOptions.js";
+import {
+  deliveryOptions,
+  getDeliveryOption,
+} from "../../data/deliveryOptions.js";
 
 export function renderOrderSummary() {
   let cartSummaryHTML = "";
@@ -12,24 +15,12 @@ export function renderOrderSummary() {
     const productId = cartItem.productId;
 
     // Find the matching product
-    const matchingProduct = products.find(
-      (product) => product.id === productId
-    );
-    if (!matchingProduct) {
-      console.error(`Product with ID ${productId} not found.`);
-      return;
-    }
+    const matchingProduct = getProduct(productId);
 
     const deliveryOptionId = cartItem.deliveryOptionId;
 
     // Find the matching delivery option
-    const deliveryOption = deliveryOptions.find(
-      (option) => option.id === deliveryOptionId
-    );
-    if (!deliveryOption) {
-      console.error(`Delivery option with ID ${deliveryOptionId} not found.`);
-      return;
-    }
+    const deliveryOption = getDeliveryOption(deliveryOptionId);
 
     // Calculate the delivery date
     const deliveryDate = today.add(deliveryOption.deliveryDays, "days");

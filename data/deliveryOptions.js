@@ -15,3 +15,14 @@ export const deliveryOptions = [
     priceCents: 999,
   },
 ];
+
+export function getDeliveryOption(deliveryOptionId) {
+  let deliveryOption = deliveryOptions.find(
+    (option) => option.id === deliveryOptionId
+  );
+  if (!deliveryOption) {
+    console.error(`Delivery option with ID ${deliveryOptionId} not found.`);
+    return;
+  }
+  return deliveryOption;
+}
