@@ -100,7 +100,7 @@ export function loadProducts(fun) {
     fun();
   });
 
-  xhr.addEventListener((error) => {
+  xhr.addEventListener("error", (error) => {
     console.log("Unexpected error. please try agian later");
   });
 
